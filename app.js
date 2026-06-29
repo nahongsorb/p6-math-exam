@@ -8,7 +8,7 @@ let skillsChartInstance = null; // Global Chart.js instance
 let countdownInterval = null;
 
 // Developer & Sync Settings
-let sheetUrl = "https://script.google.com/macros/s/AKfycbzDM7ON9XW-njB1G7MJG1clAmTiK7iYhApCFMReErVIM-v7whxeWHGTUQ9b9u7dDBZ_/exec";
+let sheetUrl = "https://script.google.com/macros/s/AKfycbyxX3ZyCO8y7SRVvJlsYveNjwCkORDnVBdUVc2efYP6oSGtPM5M3aZS0sUK1XvjJYSs/exec";
 let bypassLock = false;
 
 // DOM Screens
