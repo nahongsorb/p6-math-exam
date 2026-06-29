@@ -1038,7 +1038,7 @@ body::after {
   width: 100%;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
-  overflow: hidden;
+  overflow-x: auto; /* Allow swipe scrolling on small mobile screens */
 }
 
 .leaderboard-table {
@@ -1264,5 +1264,26 @@ body::after {
 .wrong-card.incorrect .student-choice {
   background-color: #FFF1F1;
   border-left: 3px solid var(--danger);
+}
+
+/* Mobile Responsiveness for Leaderboard Table */
+@media (max-width: 480px) {
+  .leaderboard-section {
+    padding: 16px 12px;
+  }
+  .leaderboard-table th, 
+  .leaderboard-table td {
+    padding: 10px 6px;
+    font-size: 0.8rem;
+  }
+  .leaderboard-table th:first-child,
+  .leaderboard-table td:first-child {
+    width: 45px !important;
+  }
+  .leaderboard-rank {
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
+  }
 }
 

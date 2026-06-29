@@ -1063,7 +1063,7 @@ async function openLeaderboard() {
     tr.innerHTML = `
       <td><span class="leaderboard-rank ${rankClass}">${rank}</span></td>
       <td>${row.nickname} ${currentUser && row.nickname === currentUser.nickname ? " (ตัวฉัน)" : ""}</td>
-      <td style="text-align: center;">${row.total_sets} / 20 ชุด</td>
+      <td style="text-align: center;">${row.total_sets}/20</td>
       <td style="text-align: center; font-weight: 700; color: var(--primary);">${row.total_score}</td>
       <td style="text-align: center; font-family: var(--font-eng);">${(row.average_score || 0).toFixed(1)}</td>
     `;
