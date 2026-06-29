@@ -61,9 +61,7 @@ const wrongQuestionsList = document.getElementById("wrong-questions-list");
 const weaknessBullets = document.getElementById("weakness-bullets");
 const btnBackDashboard = document.getElementById("btn-back-dashboard");
 
-// DOM Elements - Leaderboard Modal
-const leaderboardModal = document.getElementById("leaderboard-modal");
-const btnCloseLeaderboard = document.getElementById("btn-close-leaderboard");
+// DOM Elements - Leaderboard
 const leaderboardRows = document.getElementById("leaderboard-rows");
 const leaderboardLoading = document.getElementById("leaderboard-loading");
 
@@ -113,8 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
   btnRegister.addEventListener("click", registerStudent);
 
   btnLogout.addEventListener("click", logoutStudent);
-  btnShowLeaderboard.addEventListener("click", openLeaderboard);
-  btnCloseLeaderboard.addEventListener("click", closeLeaderboard);
+  btnShowLeaderboard.addEventListener("click", () => {
+    const section = document.querySelector(".leaderboard-section");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  });
 
   btnPrev.addEventListener("click", prevQuestion);
   btnNext.addEventListener("click", nextQuestion);
@@ -546,6 +548,9 @@ function renderDashboard() {
 
     setsGrid.appendChild(card);
   }
+  
+  // Load leaderboard automatically in the embedded section
+  openLeaderboard();
 }
 
 // Countdown timer to midnight helper
@@ -945,7 +950,6 @@ function goBackDashboard() {
 async function openLeaderboard() {
   leaderboardRows.innerHTML = "";
   leaderboardLoading.style.display = "flex";
-  leaderboardModal.classList.add("active");
 
   let leaderboard = [];
 
@@ -1067,9 +1071,7 @@ async function openLeaderboard() {
   });
 }
 
-function closeLeaderboard() {
-  leaderboardModal.classList.remove("active");
-}
+
 
 
 // --- SKILLS CHART RENDERER ---

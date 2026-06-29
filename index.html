@@ -121,6 +121,32 @@
       <div id="sets-grid" class="sets-grid">
         <!-- Sets cards will be rendered dynamically -->
       </div>
+
+      <!-- EMBEDDED LEADERBOARD SECTION -->
+      <div class="leaderboard-section">
+        <h3 class="leaderboard-section-title">
+          <i class="fas fa-trophy text-secondary"></i> ตารางอันดับคะแนนสะสมในห้องเรียน
+        </h3>
+        <div class="leaderboard-table-container">
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th style="width: 70px;">อันดับ</th>
+                <th>ชื่อเล่น</th>
+                <th style="text-align: center;">ทำข้อสอบไป</th>
+                <th style="text-align: center;">คะแนนรวม</th>
+                <th style="text-align: center;">คะแนนเฉลี่ย</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-rows">
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+        <div id="leaderboard-loading" class="leaderboard-loading">
+          <i class="fas fa-spinner fa-spin"></i> กำลังโหลดคะแนนของเพื่อนๆ...
+        </div>
+      </div>
     </div>
 
     <!-- SCREEN 4: QUIZ SCREEN -->
@@ -232,37 +258,6 @@
       </div>
     </div>
 
-  </div>
-
-  <!-- LEADERBOARD MODAL -->
-  <div id="leaderboard-modal" class="modal-overlay">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3><i class="fas fa-trophy text-secondary"></i> ตารางอันดับคะแนนสะสมในห้องเรียน</h3>
-        <button id="btn-close-leaderboard" class="modal-close-btn">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="leaderboard-table-container">
-          <table class="leaderboard-table">
-            <thead>
-              <tr>
-                <th style="width: 70px;">อันดับ</th>
-                <th>ชื่อเล่น</th>
-                <th style="text-align: center;">ทำข้อสอบไป</th>
-                <th style="text-align: center;">คะแนนรวม</th>
-                <th style="text-align: center;">คะแนนเฉลี่ย</th>
-              </tr>
-            </thead>
-            <tbody id="leaderboard-rows">
-              <!-- Loaded dynamically -->
-            </tbody>
-          </table>
-        </div>
-        <div id="leaderboard-loading" class="leaderboard-loading">
-          <i class="fas fa-spinner fa-spin"></i> กำลังโหลดคะแนนของเพื่อนๆ...
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- FLOATING DEVELOPER PANEL -->
