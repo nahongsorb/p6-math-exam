@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ระบบแบบทดสอบประเมินความรู้คณิตศาสตร์ ป.6 เพื่อเตรียมตัวสอบเข้า ม.1 สำหรับนักเรียนชั้นประถมศึกษาปีที่ 6 จำนวน 20 ชุด">
+  <title>แบบทดสอบเตรียมสอบเข้า ม.1 คณิตศาสตร์ ป.6</title>
+
+  <!-- KaTeX CSS for beautiful math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Chart.js CDN for skills analysis graph -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- KaTeX JS and Auto-Render (Loaded in head to ensure availability) -->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- SCREEN 1: LOGIN SCREEN -->
+    <div id="login-screen" class="screen active">
+      <div class="auth-box">
+        <div class="logo-wrapper">
+          <img src="logo.png" class="logo-img" alt="โลโก้เตรียมสอบเข้า ม.1">
+        </div>
+        <h1>เตรียมสอบเข้า <span>ม.1</span></h1>
+        <p class="welcome-subtitle">แบบฝึกซ้อมคณิตศาสตร์ ป.6 สอบเข้า ม.1 (20 ชุด ชุดละ 10 ข้อ)</p>
+        
+        <h2 class="auth-title"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบนักเรียน</h2>
+        
+        <div class="input-group">
+          <label for="login-username">ชื่อผู้ใช้ (Username):</label>
+          <input type="text" id="login-username" class="name-input" placeholder="ตัวอย่าง: punpun123" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+          <label for="login-password">รหัสผ่าน (Password):</label>
+          <input type="password" id="login-password" class="name-input" placeholder="กรอกรหัสผ่านของคุณ">
+        </div>
+
+        <button id="btn-login" class="btn btn-block">
+          เข้าสู่ระบบ <i class="fas fa-play"></i>
+        </button>
+
+        <p class="auth-switch-text">
+          ยังไม่มีบัญชีใช่ไหม? <a href="#" id="link-go-register">สมัครสมาชิกใหม่ตรงนี้</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: REGISTER SCREEN -->
+    <div id="register-screen" class="screen">
+      <div class="auth-box">
+        <div class="logo-wrapper">
+          <img src="logo.png" class="logo-img" alt="โลโก้เตรียมสอบเข้า ม.1">
+        </div>
+        <h1>เตรียมสอบเข้า <span>ม.1</span></h1>
+        <p class="welcome-subtitle">ลงทะเบียนเพื่อบันทึกประวัติการฝึกฝนและคะแนนของคุณ</p>
+        
+        <h2 class="auth-title"><i class="fas fa-user-plus"></i> สมัครสมาชิกใหม่</h2>
+        
+        <div class="input-group">
+          <label for="reg-nickname">ชื่อเล่นของน้อง (แสดงบนบอร์ดคะแนน):</label>
+          <input type="text" id="reg-nickname" class="name-input" placeholder="ตัวอย่าง: น้องปันปัน" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+          <label for="reg-username">ตั้งชื่อผู้ใช้ (Username เป็นภาษาอังกฤษ/ตัวเลข):</label>
+          <input type="text" id="reg-username" class="name-input" placeholder="ตัวอย่าง: punpun2026" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+          <label for="reg-password">ตั้งรหัสผ่าน (Password):</label>
+          <input type="password" id="reg-password" class="name-input" placeholder="กรอกรหัสผ่านเพื่อความปลอดภัย">
+        </div>
+
+        <button id="btn-register" class="btn btn-block">
+          ลงทะเบียนสมาชิก <i class="fas fa-user-check"></i>
+        </button>
+
+        <p class="auth-switch-text">
+          มีบัญชีอยู่แล้ว? <a href="#" id="link-go-login">กลับไปเข้าสู่ระบบ</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: DASHBOARD SCREEN -->
+    <div id="dashboard-screen" class="screen">
+      <div class="dashboard-header">
+        <div class="user-profile">
+          <i class="fas fa-user-astronaut profile-icon"></i>
+          <div>
+            <div class="user-greeting">สวัสดีครับ น้อง <span id="dash-nickname">ผู้เรียน</span></div>
+            <div class="user-summary">ผ่านแล้ว <span id="completed-sets-count">0</span>/20 ชุด | คะแนนรวม: <span id="total-score-count">0</span> คะแนน</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="btn-show-leaderboard" class="btn btn-secondary btn-sm">
+            <i class="fas fa-trophy"></i> บอร์ดคะแนน
+          </button>
+          <button id="btn-logout" class="btn btn-danger btn-sm">
+            <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+          </button>
+        </div>
+      </div>
+
+      <div class="dashboard-lock-warning" id="dashboard-lock-warning" style="display: none;">
+        <i class="fas fa-hourglass-half"></i> วันนี้ทำข้อสอบครบสิทธิ์แล้ว! ข้อสอบชุดถัดไปจะปลดล็อกในอีก: <span id="lock-countdown">00:00:00</span>
+      </div>
+
+      <h3 class="sets-grid-title"><i class="fas fa-book-open"></i> เลือกชุดข้อสอบคณิตศาสตร์ ป.6 (ทำวันละ 1 ชุด)</h3>
+      <div id="sets-grid" class="sets-grid">
+        <!-- Sets cards will be rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- SCREEN 4: QUIZ SCREEN -->
+    <div id="quiz-screen" class="screen">
+      <div class="quiz-header">
+        <div class="student-badge">
+          <i class="fas fa-user-circle"></i>
+          <span id="student-badge-name">นักเรียน</span>
+          <span id="quiz-set-badge" class="set-badge">ชุดที่ 1</span>
+        </div>
+        <div id="progress-counter" class="progress-counter">ข้อที่ 1 จาก 10</div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+
+      <!-- Question container -->
+      <div class="question-card">
+        <div id="question-text" class="question-text">
+          1. คำถามจะแสดงตรงนี้
+        </div>
+        
+        <!-- Options List -->
+        <div id="options-grid" class="options-grid">
+          <!-- Options will be generated dynamically -->
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="quiz-footer">
+        <button id="btn-prev" class="btn btn-secondary">
+          <i class="fas fa-chevron-left"></i> ย้อนกลับ
+        </button>
+        <button id="btn-next" class="btn">
+          ข้อถัดไป <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Question Navigation Bar -->
+      <div id="question-nav-bar" class="question-nav-bar">
+        <!-- Number buttons will be generated dynamically -->
+      </div>
+    </div>
+
+    <!-- SCREEN 5: RESULTS SCREEN -->
+    <div id="results-screen" class="screen">
+      <div class="results-screen">
+        <h2>สรุปคะแนนประเมินผล</h2>
+        <div id="result-congrats" class="student-congrats">
+          น้อง สมชาย ได้คะแนน
+        </div>
+
+        <!-- Score circle gauge -->
+        <div class="score-circle-wrapper">
+          <svg class="score-svg" viewBox="0 0 200 200">
+            <circle class="score-circle-bg" cx="100" cy="100" r="90"></circle>
+            <circle id="score-circle-progress" class="score-circle-progress" cx="100" cy="100" r="90"></circle>
+          </svg>
+          <div class="score-center-text">
+            <div id="score-number" class="score-number">8/10</div>
+            <div class="score-label">คะแนน</div>
+          </div>
+        </div>
+
+        <!-- Badge & Award Message -->
+        <div id="badge-award" class="badge-award">
+          <span>🏆</span> ยอดเยี่ยมมาก! เก่งที่สุดในห้องเลยนะลูก
+        </div>
+
+        <!-- Weakness analysis section -->
+        <div id="analysis-container" class="analysis-container" style="display: none;">
+          <h3 class="analysis-title">
+            วิเคราะห์ข้อผิดพลาดและข้อควรระวัง
+          </h3>
+          <div class="analysis-intro">
+            <i class="fas fa-info-circle"></i> รายงานวิเคราะห์นี้ช่วยประเมินทักษะของน้องจากข้อที่ทำผิด เพื่อเป็นแนวทางในการทบทวนเนื้อหาก่อนเข้าห้องสอบจริง
+          </div>
+
+          <!-- Skills Chart wrapper -->
+          <div class="chart-section-card">
+            <h4><i class="fas fa-chart-bar"></i> แผนภูมิประเมินทักษะรายหัวข้อ (เปอร์เซ็นต์ความถูกต้อง)</h4>
+            <div class="chart-wrapper">
+              <canvas id="skillsChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Weakness Summary card -->
+          <div class="weakness-summary-card">
+            <h4><i class="fas fa-list-check"></i> สรุปหัวข้อจุดอ่อนที่น้องควรพัฒนา:</h4>
+            <ul id="weakness-bullets" class="weakness-bullets">
+              <!-- Will be populated dynamically -->
+            </ul>
+          </div>
+          
+          <h4 class="wrong-list-header"><i class="fas fa-search-plus"></i> เฉลยและวิธีคิดละเอียดรายข้อ:</h4>
+          <div id="wrong-questions-list" class="wrong-questions-list">
+            <!-- All questions details will be rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Action Footer -->
+        <div class="results-footer">
+          <button id="btn-back-dashboard" class="btn">
+            กลับไปหน้าหลัก (แดชบอร์ด) <i class="fas fa-home"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LEADERBOARD MODAL -->
+  <div id="leaderboard-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fas fa-trophy text-secondary"></i> ตารางอันดับคะแนนสะสมในห้องเรียน</h3>
+        <button id="btn-close-leaderboard" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="leaderboard-table-container">
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th style="width: 70px;">อันดับ</th>
+                <th>ชื่อเล่น</th>
+                <th style="text-align: center;">ทำข้อสอบไป</th>
+                <th style="text-align: center;">คะแนนรวม</th>
+                <th style="text-align: center;">คะแนนเฉลี่ย</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-rows">
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+        <div id="leaderboard-loading" class="leaderboard-loading">
+          <i class="fas fa-spinner fa-spin"></i> กำลังโหลดคะแนนของเพื่อนๆ...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING DEVELOPER PANEL -->
+  <div id="dev-drawer" class="dev-drawer">
+    <button id="btn-toggle-dev" class="dev-toggle-btn"><i class="fas fa-cogs"></i> ตั้งค่าผู้พัฒนา</button>
+    <div class="dev-content">
+      <h4><i class="fas fa-tools"></i> แผงควบคุมระบบทดสอบ</h4>
+      <div class="dev-form-group">
+        <label for="dev-sheet-url">Google Apps Script Web App URL:</label>
+        <input type="text" id="dev-sheet-url" placeholder="https://script.google.com/macros/s/.../exec">
+        <small>กรอก URL ที่ได้จากการ Deploy Web App บน Google Apps Script เพื่อเปิดระบบฐานข้อมูลคลาวด์</small>
+      </div>
+      <div class="dev-form-group checkbox-group">
+        <input type="checkbox" id="dev-bypass-lock">
+        <label for="dev-bypass-lock"><strong>ปลดล็อกทำได้หลายชุดต่อวัน</strong> (ข้ามการล็อก 24 ชั่วโมง)</label>
+      </div>
+      <div class="dev-actions">
+        <button id="btn-dev-save" class="btn btn-secondary btn-sm"><i class="fas fa-save"></i> บันทึกการตั้งค่า</button>
+        <button id="btn-dev-clear" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> ล้างแคชทั้งหมด</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Exam Questions Data -->
+  <script src="questions.js"></script>
+
+  <!-- Load App Logic -->
+  <script src="app.js"></script>
+
+</body>
+</html>
