@@ -8,7 +8,7 @@ let skillsChartInstance = null; // Global Chart.js instance
 let countdownInterval = null;
 
 // Developer & Sync Settings
-let sheetUrl = "https://script.google.com/macros/s/AKfycbyVTMWhO_D7yrJJxhQElY1yS4fpzsxJIJzDOZEsPAEi4RYGkwdpJIFpXNuFEpgQNUdH/exec";
+let sheetUrl = "https://script.google.com/macros/s/AKfycbyxX3ZyCO8y7SRVvJlsYveNjwCkORDnVBdUVc2efYP6oSGtPM5M3aZS0sUK1XvjJYSs/exec";
 let bypassLock = false;
 
 // DOM Screens
@@ -75,47 +75,12 @@ const devBypassLockInput = document.getElementById("dev-bypass-lock");
 const btnDevSave = document.getElementById("btn-dev-save");
 const btnDevClear = document.getElementById("btn-dev-clear");
 
-// PRE-POPULATED MOCK CLASSROOM DATA (Used when Offline or Sheet not connected)
-const defaultMockUsers = [
-  { username: "phumin_math", nickname: "น้องภูมินทร์", password: "123" },
-  { username: "pitcha_p6", nickname: "น้องพิชชา", password: "123" },
-  { username: "techin_cool", nickname: "น้องเตชินท์", password: "123" },
-  { username: "nada_smart", nickname: "น้องนดา", password: "123" },
-  { username: "karn_pp", nickname: "น้องกานต์", password: "123" }
-];
-
-const defaultMockScores = [
-  // phumin_math
-  { username: "phumin_math", set_number: 1, score: 9, timestamp: new Date(Date.now() - 4 * 24 * 3600000) },
-  { username: "phumin_math", set_number: 2, score: 8, timestamp: new Date(Date.now() - 3 * 24 * 3600000) },
-  { username: "phumin_math", set_number: 3, score: 9, timestamp: new Date(Date.now() - 2 * 24 * 3600000) },
-  { username: "phumin_math", set_number: 4, score: 8, timestamp: new Date(Date.now() - 1 * 24 * 3600000) },
-  { username: "phumin_math", set_number: 5, score: 8, timestamp: new Date(Date.now() - 4 * 3600000) },
-  // pitcha_p6
-  { username: "pitcha_p6", set_number: 1, score: 9, timestamp: new Date(Date.now() - 3 * 24 * 3600000) },
-  { username: "pitcha_p6", set_number: 2, score: 9, timestamp: new Date(Date.now() - 2 * 24 * 3600000) },
-  { username: "pitcha_p6", set_number: 3, score: 8, timestamp: new Date(Date.now() - 1 * 24 * 3600000) },
-  { username: "pitcha_p6", set_number: 4, score: 10, timestamp: new Date(Date.now() - 5 * 3600000) },
-  // techin_cool
-  { username: "techin_cool", set_number: 1, score: 8, timestamp: new Date(Date.now() - 2 * 24 * 3600000) },
-  { username: "techin_cool", set_number: 2, score: 9, timestamp: new Date(Date.now() - 1 * 24 * 3600000) },
-  { username: "techin_cool", set_number: 3, score: 8, timestamp: new Date(Date.now() - 6 * 3600000) },
-  // nada_smart
-  { username: "nada_smart", set_number: 1, score: 8, timestamp: new Date(Date.now() - 3 * 24 * 3600000) },
-  { username: "nada_smart", set_number: 2, score: 8, timestamp: new Date(Date.now() - 2 * 24 * 3600000) },
-  { username: "nada_smart", set_number: 3, score: 7, timestamp: new Date(Date.now() - 1 * 24 * 3600000) },
-  { username: "nada_smart", set_number: 4, score: 9, timestamp: new Date(Date.now() - 2 * 3600000) },
-  // karn_pp
-  { username: "karn_pp", set_number: 1, score: 10, timestamp: new Date(Date.now() - 1 * 24 * 3600000) },
-  { username: "karn_pp", set_number: 2, score: 8, timestamp: new Date(Date.now() - 3 * 3600000) }
-];
-
-// Initialize Mock Data in LocalStorage if not exists
+// Initialize Mock Data in LocalStorage if not exists (starts empty)
 if (!localStorage.getItem("mock_users")) {
-  localStorage.setItem("mock_users", JSON.stringify(defaultMockUsers));
+  localStorage.setItem("mock_users", JSON.stringify([]));
 }
 if (!localStorage.getItem("mock_scores")) {
-  localStorage.setItem("mock_scores", JSON.stringify(defaultMockScores));
+  localStorage.setItem("mock_scores", JSON.stringify([]));
 }
 
 // Initialize Application
@@ -155,6 +120,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // Enable Keyboard Enter triggers
   loginPasswordInput.addEventListener("keypress", (e) => { if (e.key === "Enter") loginStudent(); });
   regPasswordInput.addEventListener("keypress", (e) => { if (e.key === "Enter") registerStudent(); });
+
+  // Secret Click Handler for Developer Settings (Tap Logo or User Greeting 5 times)
+  let devClicks = 0;
+  const triggerDevMode = () => {
+    devClicks++;
+    if (devClicks >= 5) {
+      devDrawer.style.display = "block";
+      setTimeout(() => {
+        devDrawer.classList.add("active");
+      }, 50);
+      alert("🔓 เปิดโหมดตั้งค่าสำหรับผู้พัฒนาและครูผู้สอนแล้ว!");
+      devClicks = 0;
+    }
+  };
+  document.querySelectorAll(".logo-img, .user-greeting").forEach(el => {
+    el.addEventListener("click", triggerDevMode);
+  });
 
   // Auto-login if user is remembered
   const savedUser = localStorage.getItem("currentUser");
