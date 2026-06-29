@@ -8,7 +8,7 @@ let skillsChartInstance = null; // Global Chart.js instance
 let countdownInterval = null;
 
 // Developer & Sync Settings
-let sheetUrl = "https://script.google.com/macros/s/AKfycbyxX3ZyCO8y7SRVvJlsYveNjwCkORDnVBdUVc2efYP6oSGtPM5M3aZS0sUK1XvjJYSs/exec";
+let sheetUrl = "https://script.google.com/macros/s/AKfycbzDM7ON9XW-njB1G7MJG1clAmTiK7iYhApCFMReErVIM-v7whxeWHGTUQ9b9u7dDBZ_/exec";
 let bypassLock = false;
 
 // DOM Screens
@@ -86,7 +86,10 @@ if (!localStorage.getItem("mock_scores")) {
 // Initialize Application
 document.addEventListener("DOMContentLoaded", () => {
   // Load dev settings
-  sheetUrl = localStorage.getItem("dev_sheet_url") || "";
+  const savedSheetUrl = localStorage.getItem("dev_sheet_url");
+  if (savedSheetUrl) {
+    sheetUrl = savedSheetUrl;
+  }
   bypassLock = localStorage.getItem("dev_bypass_lock") === "true";
   
   devSheetUrlInput.value = sheetUrl;
